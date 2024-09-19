@@ -55,11 +55,21 @@ function displayWeather(data) {
 function addCityField() {
     // Add a new input field for the user to enter more cities
     const cityFields = document.getElementById('cityFields');
-    const newInput = document.createElement('input');
-    newInput.type = 'text';
-    newInput.placeholder = 'Enter city name';
-    newInput.className = 'cityField';
-    cityFields.appendChild(newInput);
+    
+    // Create new input field for city name
+    const newCityInput = document.createElement('input');
+    newCityInput.type = 'text';
+    newCityInput.placeholder = 'Enter city name';
+    newCityInput.className = 'cityField';
+    cityFields.appendChild(newCityInput);
+
+    //Create new input field for days in city
+    const newDayInput = document.createElement('input');
+    newDayInput.type = 'text';
+    newDayInput.placeholder = 'How many days you will be there';
+    newDayInput.className = 'dayField';
+    cityFields.appendChild(newDayInput);
+
     cityFields.appendChild(document.createElement('br'));
 }
 
@@ -76,9 +86,23 @@ function getCityList() {
         }
     }
 
+
     // Now, you can use the list in JavaScript
     console.log(cityList); // This will be an array of city names
 }
 
+function getDayList() {
+    const dayInputs = document.getElementsByClassName('dayField');
+    const dayList = [];
+    
+    for (let input of dayInputs) {
+        const day = input.value.trim();
+        if (day !== "") {
+            dayList.push(day);
+        }
+    }
+
+    console.log(dayList);
+}
 
 fetchWeatherData();
