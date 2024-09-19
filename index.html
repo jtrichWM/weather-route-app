@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road Trip Weather Planner</title>
     <style>
-        
+        .weather-container {
+            padding: 20px;
+        }
+        .weather-item {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
     <p>Hello World!</p>
+
+    <h2>Enter City Names:</h2>
+    <div id="cityFields">
+        <input type="text" placeholder="Enter city name" class="cityField"><br>
+    </div>
+    <button onclick="addCityField()">Add Another City</button>
+    <button onclick="getCityList()">Submit</button>
+
+    <div class="weather-container" id="weatherContainer">
+        <!-- Weather details will be inserted here -->
+    </div>
 
     <script src="app.js"></script>
 </body>
