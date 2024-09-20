@@ -110,6 +110,7 @@ function addCityField() {
     
     // Create new input field for city name
     const newCityInput = document.createElement('input');
+    newCityInput.style.margin = '10px';
     newCityInput.type = 'text';
     newCityInput.placeholder = 'Enter city name';
     newCityInput.className = 'cityField';
@@ -117,6 +118,7 @@ function addCityField() {
 
     //Create new input field for days in city
     const newDayInput = document.createElement('input');
+    newDayInput.style.margin = '5px';
     newDayInput.type = 'text';
     newDayInput.placeholder = 'How many days you will be there';
     newDayInput.className = 'dayField';
