@@ -25,32 +25,84 @@ function fetchWeatherData() {
 function displayWeather(data) {
     const weatherContainer = document.getElementById('weatherContainer');
 
-    // Clear previous weather data if any
+    // Clear previous weather data
     weatherContainer.innerHTML = '';
 
-    // Loop through the weather list and display data for each forecast
+    // Create an outer container for the columns
+    const columnsContainer = document.createElement('div');
+    columnsContainer.style.display = 'flex'; // Make the columns sit next to each other
+
+    // Hashmap to keep track of which day you are populating
+    const daysData = {};
+
+    // Group forecasts by day
     data.list.forEach(item => {
-        const weatherItem = document.createElement('div');
-        weatherItem.classList.add('weather-item');
+        // Get the date only (ignore the time part)
+        const date = new Date(item.dt * 1000).toLocaleDateString();
 
-        // Create a readable date
-        const date = new Date(item.dt * 1000).toLocaleString();
+        if (!daysData[date]) {
+            daysData[date] = [];
+        }
 
-        // Access the main weather info (temperature, description)
-        const temp = item.main.temp;
-        const description = item.weather[0].description;
-
-        // Build the content
-        weatherItem.innerHTML = `
-            <strong>Date:</strong> ${date} <br>
-            <strong>Temperature:</strong> ${temp}°C <br>
-            <strong>Conditions:</strong> ${description} <br>
-        `;
-
-        // Append to the container
-        weatherContainer.appendChild(weatherItem);
+        // Push weather data to that day's array
+        daysData[date].push(item);
     });
+
+    // Outer loop - iterate over each day (columns)
+    Object.keys(daysData).forEach(date => {
+        const dayColumn = document.createElement('div');
+        dayColumn.classList.add('day-column');
+        dayColumn.style.margin = '0 10px'; // Space between columns
+
+        // Add the date as the column header
+        const dateHeader = document.createElement('h3');
+        dateHeader.textContent = `Date: ${date}`;
+        dayColumn.appendChild(dateHeader);
+
+        // Add the location to the column header
+        const location = data.city.name;
+        const locHeader = document.createElement('h3');
+        locHeader.textContent = `Location: ${location}`;
+        dayColumn.appendChild(locHeader);
+
+        // Inner loop - iterate over each weather forecast for this day
+        daysData[date].forEach(item => {
+            //Create each row for the individual times of day
+            const weatherItem = document.createElement('div');
+            weatherItem.classList.add('weather-item');
+            weatherItem.style.border = '1px solid #ccc';
+            weatherItem.style.padding = '10px';
+            weatherItem.style.marginBottom = '10px';
+
+            // Get the time of day from the 'dt' field
+            const time = new Date(item.dt * 1000).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+            });
+
+            // Access the weather info (temperature, description)
+            const temp = item.main.temp;
+            const description = item.weather[0].description;
+
+            // Build the content
+            weatherItem.innerHTML = `
+                <strong>Time:</strong> ${time} <br>
+                <strong>Temperature:</strong> ${temp}°C <br>
+                <strong>Conditions:</strong> ${description} <br>
+            `;
+
+            // Append the weather item to the current day's column
+            dayColumn.appendChild(weatherItem);
+        });
+
+        // Append each day's column to the columns container
+        columnsContainer.appendChild(dayColumn);
+    });
+
+    // Finally, append the columns container to the weather container
+    weatherContainer.appendChild(columnsContainer);
 }
+
 
 function addCityField() {
     // Add a new input field for the user to enter more cities
