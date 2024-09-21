@@ -17,15 +17,13 @@
     </style>
 </head>
 <body>
-    <p>Hello World!</p>
-
-    <h2>Enter City Names:</h2>
+    <h2>Enter City Names and How Long You Will Be There:</h2>
     <div id="cityFields">
         <input type="text" placeholder="Enter city name" class="cityField">
         <input type="text" placeholder="How many days you will be there" class="dayField"><br>
     </div>
     <button onclick="addCityField()">Add Another City</button>
-    <button onclick="getCityList();getDayList()">Submit</button>
+    <button onclick="getCityAndDayList()">Submit</button>
 
     <div class="weather-container" id="weatherContainer">
         <!-- Weather details will be inserted here -->

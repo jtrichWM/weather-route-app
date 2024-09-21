@@ -1,5 +1,3 @@
-
-
 function fetchWeatherData() {
     const url = 'https://api.openweathermap.org/data/2.5/forecast?q=London&appid=99086643703ce12d8c9382eaaf333d0a'
 
@@ -103,7 +101,6 @@ function displayWeather(data) {
     weatherContainer.appendChild(columnsContainer);
 }
 
-
 function addCityField() {
     // Add a new input field for the user to enter more cities
     const cityFields = document.getElementById('cityFields');
@@ -127,36 +124,31 @@ function addCityField() {
     cityFields.appendChild(document.createElement('br'));
 }
 
-function getCityList() {
-    // Get all the city fields
+function getCityAndDayList() {
     const cityInputs = document.getElementsByClassName('cityField');
-    const cityList = [];
-
-    // Loop through each input field and add the value to the list
-    for (let input of cityInputs) {
-        const cityName = input.value.trim();
-        if (cityName !== "") {
-            cityList.push(cityName);
-        }
-    }
-
-
-    // Now, you can use the list in JavaScript
-    console.log(cityList); // This will be an array of city names
-}
-
-function getDayList() {
     const dayInputs = document.getElementsByClassName('dayField');
-    const dayList = [];
+    const cities = [];
     
-    for (let input of dayInputs) {
-        const day = input.value.trim();
-        if (day !== "") {
-            dayList.push(day);
+    // Loop through each input field and add the values
+    for (let i = 0; i < cityInputs.length; i++) {
+        const cityName = cityInputs[i].value.trim();
+        const dayCount = parseInt(dayInputs[i].value.trim());
+
+        // Add the city names for each day of the trip
+        for (let k = 0; k < dayCount; k++) {
+            cities.push(cityName);
         }
+
     }
 
-    console.log(dayList);
+    console.log(cities);
+
+    // // Fetch weather for each city in sequence
+    // let totalDays = 0; // Track how many days have been processed overall
+    // for (let i = 0; i < cities.length; i++) {
+    //     fetchWeatherData(cities[i], days[i], totalDays); 
+    //     totalDays += days[i]; // Add to the total day count
+    // }
 }
 
 fetchWeatherData();
