@@ -1,5 +1,5 @@
-function fetchWeatherData() {
-    const url = 'https://api.openweathermap.org/data/2.5/forecast?q=London&appid=99086643703ce12d8c9382eaaf333d0a'
+function fetchWeatherData(location) {
+    const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + location + '&appid=99086643703ce12d8c9382eaaf333d0a'
 
     fetch(url)
         .then(response => {
@@ -14,7 +14,7 @@ function fetchWeatherData() {
             displayWeather(data);
         })
         .catch(error => {
-            console.error('Error fatching weather data: ', error);
+            console.error('Error fetching weather data: ', error);
         });
 
         console.log("Done")
@@ -151,4 +151,4 @@ function getCityAndDayList() {
     // }
 }
 
-fetchWeatherData();
+fetchWeatherData("Moscow");
