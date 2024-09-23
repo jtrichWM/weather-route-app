@@ -1,7 +1,7 @@
 function fetchWeatherData(location) {
     const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + location + '&appid=99086643703ce12d8c9382eaaf333d0a'
 
-    fetch(url)
+    return fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw new Error('HTTP error! status: ${response.status}');
@@ -9,18 +9,15 @@ function fetchWeatherData(location) {
             return response.json();
         })
         .then(data => {
-            console.log(data);
-
-            displayWeather(data);
+            console.log("Fetched data for: ", location, data);
+            return data;
         })
         .catch(error => {
             console.error('Error fetching weather data: ', error);
         });
-
-        console.log("Done")
 }
 
-function displayWeather(data) {
+function displayWeather(citiesData, citiesTotal) {
     const weatherContainer = document.getElementById('weatherContainer');
 
     // Clear previous weather data
@@ -30,42 +27,56 @@ function displayWeather(data) {
     const columnsContainer = document.createElement('div');
     columnsContainer.style.display = 'flex'; // Make the columns sit next to each other
 
-    // Hashmap to keep track of which day you are populating
-    const daysData = {};
+    // Loop through each city in the citiesTotal array (each day)
+    citiesTotal.forEach((city, index) => {
+        const cityWeatherData = citiesData[city];
 
-    // Group forecasts by day
-    data.list.forEach(item => {
-        // Get the date only (ignore the time part)
-        const date = new Date(item.dt * 1000).toLocaleDateString();
-
-        if (!daysData[date]) {
-            daysData[date] = [];
+        if (!cityWeatherData) {
+            console.error(`No weather data found for city: ${city}`);
+            return; // Skip to the next city if no data found
         }
 
-        // Push weather data to that day's array
-        daysData[date].push(item);
-    });
+        // Group forecasts by day for the current city
+        const daysData = {};
 
-    // Outer loop - iterate over each day (columns)
-    Object.keys(daysData).forEach(date => {
+        cityWeatherData.list.forEach(item => {
+            // Get the date only (ignore the time part)
+            const date = new Date(item.dt * 1000).toLocaleDateString();
+
+            if (!daysData[date]) {
+                daysData[date] = [];
+            }
+
+            // Push weather data to that day's array
+            daysData[date].push(item);
+        });
+
+        // Get the current date for this day in the trip (based on the index)
+        const currentDate = Object.keys(daysData)[index % Object.keys(daysData).length];
+        const weatherForCurrentDay = daysData[currentDate];
+
+        if (!weatherForCurrentDay) {
+            console.error(`No weather data found for date: ${currentDate}`);
+            return; // Skip if no data for the current day
+        }
+
+        // Create a column for this city and day
         const dayColumn = document.createElement('div');
         dayColumn.classList.add('day-column');
         dayColumn.style.margin = '0 10px'; // Space between columns
 
         // Add the date as the column header
         const dateHeader = document.createElement('h3');
-        dateHeader.textContent = `Date: ${date}`;
+        dateHeader.textContent = `Date: ${currentDate}`;
         dayColumn.appendChild(dateHeader);
 
-        // Add the location to the column header
-        const location = data.city.name;
+        // Add the city name as a header
         const locHeader = document.createElement('h3');
-        locHeader.textContent = `Location: ${location}`;
+        locHeader.textContent = `Location: ${city}`;
         dayColumn.appendChild(locHeader);
 
-        // Inner loop - iterate over each weather forecast for this day
-        daysData[date].forEach(item => {
-            //Create each row for the individual times of day
+        // Loop through weather data for the current day and create rows
+        weatherForCurrentDay.forEach(item => {
             const weatherItem = document.createElement('div');
             weatherItem.classList.add('weather-item');
             weatherItem.style.border = '1px solid #ccc';
@@ -79,7 +90,7 @@ function displayWeather(data) {
             });
 
             // Access the weather info (temperature, description)
-            const temp = item.main.temp;
+            const temp = ((item.main.temp - 273.15) * 9/5 + 32).toFixed(2); // Convert Kelvin to Fahrenheit and round to 2 decimal places
             const description = item.weather[0].description;
 
             // Build the content
@@ -93,13 +104,14 @@ function displayWeather(data) {
             dayColumn.appendChild(weatherItem);
         });
 
-        // Append each day's column to the columns container
+        // Append the current day column to the container
         columnsContainer.appendChild(dayColumn);
     });
 
-    // Finally, append the columns container to the weather container
+    // Append the columns container to the weather container
     weatherContainer.appendChild(columnsContainer);
 }
+
 
 function addCityField() {
     // Add a new input field for the user to enter more cities
@@ -124,9 +136,10 @@ function addCityField() {
     cityFields.appendChild(document.createElement('br'));
 }
 
-function getCityAndDayList() {
+async function getCityAndDayList() {
     const cityInputs = document.getElementsByClassName('cityField');
     const dayInputs = document.getElementsByClassName('dayField');
+    const citiesTotal = [];
     const cities = [];
     
     // Loop through each input field and add the values
@@ -136,19 +149,27 @@ function getCityAndDayList() {
 
         // Add the city names for each day of the trip
         for (let k = 0; k < dayCount; k++) {
-            cities.push(cityName);
+            citiesTotal.push(cityName);
         }
-
+        cities.push(cityName);
     }
 
     console.log(cities);
+    console.log(citiesTotal);
 
-    // // Fetch weather for each city in sequence
-    // let totalDays = 0; // Track how many days have been processed overall
-    // for (let i = 0; i < cities.length; i++) {
-    //     fetchWeatherData(cities[i], days[i], totalDays); 
-    //     totalDays += days[i]; // Add to the total day count
-    // }
+    const citiesData = {}
+
+    for (let i = 0; i < cities.length; i++) {
+        try {
+            const weatherData = await fetchWeatherData(cities[i]);
+            citiesData[cities[i]] = weatherData;
+            console.log(`Data for ${cities[i]}:`, weatherData);
+        } catch (error) {
+            console.error('Error fetching data for ${cities[i]}:', error);
+        }
+    }
+
+    console.log(citiesData);
+
+    displayWeather(citiesData, citiesTotal);
 }
-
-fetchWeatherData("Moscow");
