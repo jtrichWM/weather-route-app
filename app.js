@@ -96,7 +96,7 @@ function displayWeather(citiesData, citiesTotal) {
             // Build the content
             weatherItem.innerHTML = `
                 <strong>Time:</strong> ${time} <br>
-                <strong>Temperature:</strong> ${temp}°C <br>
+                <strong>Temperature:</strong> ${temp}°F <br>
                 <strong>Conditions:</strong> ${description} <br>
             `;
 
