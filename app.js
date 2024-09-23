@@ -171,5 +171,5 @@ async function getCityAndDayList() {
 
     console.log(citiesData);
 
-    displayWeather(citiesData, citiesTotal);
+    displayWeather(citiesData, citiesTotal.splice(0,6));
 }
