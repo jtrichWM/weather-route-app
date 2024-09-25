@@ -33,7 +33,7 @@
             margin: 5px 10px;
         }
          /* Button Styling */
-         button {
+        button {
             background-color: #2980b9;
             color: #fff;
             padding: 12px 20px;
@@ -48,13 +48,33 @@
         button:hover {
             background-color: #3498db;
         }
+
+        input {
+            font-size: 14px;
+            border-radius: 6px;
+            line-height: 1.5;
+            padding: 5px 10px;
+            transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+            border: 2px solid #dee1e2;
+            color: rgb(14, 14, 16);
+            background: #dee1e2;
+            /* display: block; */
+            height: 36px;
+            :hover {
+                border-color: #ccc;
+            }
+            :focus{
+                border-color: #9147ff;
+                background: #fff;
+            }
+        }
     </style>
 </head>
 <body>
     <h2>Enter City Names and How Long You Will Be There:</h2>
     <div id="cityFields">
         <input type="text" placeholder="Enter city name" class="cityField">
-        <input type="text" placeholder="How many days you will be there" class="dayField"><br>
+        <input type="text" placeholder="Stay duration (days)" class="dayField"><br>
     </div>
     <button onclick="addCityField()">Add Another City</button>
     <button onclick="getCityAndDayList()">Submit</button>
