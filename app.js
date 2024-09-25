@@ -129,7 +129,7 @@ function addCityField() {
     const newDayInput = document.createElement('input');
     newDayInput.style.margin = '5px';
     newDayInput.type = 'text';
-    newDayInput.placeholder = 'How many days you will be there';
+    newDayInput.placeholder = 'Stay duration (days)';
     newDayInput.className = 'dayField';
     cityFields.appendChild(newDayInput);
 
