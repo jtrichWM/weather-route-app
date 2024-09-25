@@ -80,8 +80,9 @@ function displayWeather(citiesData, citiesTotal) {
             const weatherItem = document.createElement('div');
             weatherItem.classList.add('weather-item');
             weatherItem.style.border = '1px solid #ccc';
-            weatherItem.style.padding = '10px';
+            weatherItem.style.padding = '15px';
             weatherItem.style.marginBottom = '10px';
+            weatherItem.style.backgroundColor = '#c9c9c9';
 
             // Get the time of day from the 'dt' field
             const time = new Date(item.dt * 1000).toLocaleTimeString([], {
@@ -92,9 +93,13 @@ function displayWeather(citiesData, citiesTotal) {
             // Access the weather info (temperature, description)
             const temp = ((item.main.temp - 273.15) * 9/5 + 32).toFixed(2); // Convert Kelvin to Fahrenheit and round to 2 decimal places
             const description = item.weather[0].description;
+            const iconCode = item.weather[0].icon;
+            const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
 
             // Build the content
             weatherItem.innerHTML = `
+                <img src="${iconUrl}" alt="Weather Icon"><br>
                 <strong>Time:</strong> ${time} <br>
                 <strong>Temperature:</strong> ${temp}°F <br>
                 <strong>Conditions:</strong> ${description} <br>
