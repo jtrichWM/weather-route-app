@@ -24,6 +24,7 @@
         h4 {
             margin-top: 5px;
             margin-bottom: 15px;
+            color: #2c3e50;
         }
 
         .weather-container {
@@ -33,10 +34,22 @@
             margin-right: auto;
         }
         .weather-item {
-            border-radius: 15px;
-            margin: 10px 0;
-            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+        .weather-item h1 {
+            margin: 10px 0px;
+        }
+        .weather-item p {
+            margin: 0px;
+        }
+
         .cityField {
             margin: 5px 10px;
         }

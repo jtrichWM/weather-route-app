@@ -67,11 +67,13 @@ function displayWeather(citiesData, citiesTotal) {
 
         // Add the date as the column header
         const dateHeader = document.createElement('h3');
+        dateHeader.style.color = '#2c3e50';
         dateHeader.textContent = `Date: ${currentDate}`;
         dayColumn.appendChild(dateHeader);
 
         // Add the city name as a header
         const locHeader = document.createElement('h3');
+        locHeader.style.color = '#2c3e50';
         locHeader.textContent = `Location: ${city}`;
         dayColumn.appendChild(locHeader);
 
@@ -80,7 +82,7 @@ function displayWeather(citiesData, citiesTotal) {
             const weatherItem = document.createElement('div');
             weatherItem.classList.add('weather-item');
             weatherItem.style.border = '1px solid #ccc';
-            weatherItem.style.padding = '15px';
+            weatherItem.style.padding = '5px 15px';
             weatherItem.style.marginBottom = '10px';
             weatherItem.style.backgroundColor = '#c9c9c9';
 
@@ -91,18 +93,33 @@ function displayWeather(citiesData, citiesTotal) {
             });
 
             // Access the weather info (temperature, description)
-            const temp = ((item.main.temp - 273.15) * 9/5 + 32).toFixed(2); // Convert Kelvin to Fahrenheit and round to 2 decimal places
+            const temp = ((item.main.temp - 273.15) * 9/5 + 32).toFixed(0); // Convert Kelvin to Fahrenheit and round to 2 decimal places
             const description = item.weather[0].description;
+            const humidity = item.main.humidity;
             const iconCode = item.weather[0].icon;
             const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+            const windSpeed = (item.wind.speed * 2.237).toFixed(0);
 
 
             // Build the content
+            // weatherItem.innerHTML = `
+            //     <strong>${time}</strong><br>
+            //     <img src="${iconUrl}" alt="Weather Icon">
+            //     <strong>${temp}°F</strong><br>
+            //     <strong>Conditions:</strong> ${description} <br>
+            // `;
+
             weatherItem.innerHTML = `
-                <img src="${iconUrl}" alt="Weather Icon"><br>
-                <strong>Time:</strong> ${time} <br>
-                <strong>Temperature:</strong> ${temp}°F <br>
-                <strong>Conditions:</strong> ${description} <br>
+                <div style="margin-right: 10px;">
+                    <strong>${time}</strong><br>
+                    <h1>${temp}°F</h1>
+                    <strong>Humidity: </strong>${humidity}%<br>
+                    <strong>Wind: </strong>${windSpeed}mph<br>
+                </div>
+                <div style="text-align: center;">
+                    <img src="${iconUrl}" alt="Weather Icon"><br>
+                    <p>${description}</p><br>
+                </div>
             `;
 
             // Append the weather item to the current day's column
