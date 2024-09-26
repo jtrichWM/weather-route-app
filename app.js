@@ -118,7 +118,7 @@ function displayWeather(citiesData, citiesTotal) {
                 </div>
                 <div style="text-align: center;">
                     <img src="${iconUrl}" alt="Weather Icon"><br>
-                    <p>${description}</p><br>
+                    <p style="text-transform: capitalize;">${description}</p><br>
                 </div>
             `;
 
