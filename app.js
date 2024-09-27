@@ -4,7 +4,7 @@ function fetchWeatherData(location) {
     return fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error('HTTP error! status: ${response.status}');
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json();
         })
@@ -102,13 +102,6 @@ function displayWeather(citiesData, citiesTotal) {
 
 
             // Build the content
-            // weatherItem.innerHTML = `
-            //     <strong>${time}</strong><br>
-            //     <img src="${iconUrl}" alt="Weather Icon">
-            //     <strong>${temp}°F</strong><br>
-            //     <strong>Conditions:</strong> ${description} <br>
-            // `;
-
             weatherItem.innerHTML = `
                 <div style="margin-right: 10px;">
                     <strong>${time}</strong><br>
@@ -134,6 +127,22 @@ function displayWeather(citiesData, citiesTotal) {
     weatherContainer.appendChild(columnsContainer);
 }
 
+function displayError() {
+    const weatherContainer = document.getElementById('weatherContainer');
+
+    // Clear previous weather data
+    weatherContainer.innerHTML = '';
+
+    const errorMessage = document.createElement('div');
+
+    errorMessage.innerHTML = `
+        <div>
+            <strong>City Not Found, Please check for typos or enter a new city name</strong>
+        </div>
+    `;
+
+    weatherContainer.appendChild(errorMessage);
+}
 
 function addCityField() {
     // Add a new input field for the user to enter more cities
@@ -163,6 +172,8 @@ async function getCityAndDayList() {
     const dayInputs = document.getElementsByClassName('dayField');
     const citiesTotal = [];
     const cities = [];
+
+    let hasValidData = false;
     
     // Loop through each input field and add the values
     for (let i = 0; i < cityInputs.length; i++) {
@@ -179,19 +190,29 @@ async function getCityAndDayList() {
     console.log(cities);
     console.log(citiesTotal);
 
-    const citiesData = {}
+    const citiesData = {};
 
     for (let i = 0; i < cities.length; i++) {
         try {
             const weatherData = await fetchWeatherData(cities[i]);
-            citiesData[cities[i]] = weatherData;
-            console.log(`Data for ${cities[i]}:`, weatherData);
+            
+            if (weatherData) {
+                citiesData[cities[i]] = weatherData;
+                hasValidData = true; // Mark that we have some valid data
+                console.log(`Data for ${cities[i]}:`, weatherData);
+            }
+        
         } catch (error) {
-            console.error('Error fetching data for ${cities[i]}:', error);
+            console.error(`Error fetching data for ${cities[i]}:`, error);
+            displayError();
         }
     }
 
     console.log(citiesData);
 
-    displayWeather(citiesData, citiesTotal.splice(0,6));
+    if (hasValidData) {
+        displayWeather(citiesData, citiesTotal.splice(0, 6));
+    } else {
+        displayError(); // Display error if no valid data found for any city
+    }
 }
