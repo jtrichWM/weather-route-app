@@ -30,6 +30,7 @@ function displayWeather(citiesData, citiesTotal) {
     // Loop through each city in the citiesTotal array (each day)
     citiesTotal.forEach((city, index) => {
         const cityWeatherData = citiesData[city];
+        const country = citiesData[city].city.country;
 
         if (!cityWeatherData) {
             console.error(`No weather data found for city: ${city}`);
@@ -74,7 +75,7 @@ function displayWeather(citiesData, citiesTotal) {
         // Add the city name as a header
         const locHeader = document.createElement('h3');
         locHeader.style.color = '#2c3e50';
-        locHeader.textContent = `Location: ${city}`;
+        locHeader.textContent = `Location: ${city}, ${country}`;
         dayColumn.appendChild(locHeader);
 
         // Loop through weather data for the current day and create rows
@@ -99,7 +100,6 @@ function displayWeather(citiesData, citiesTotal) {
             const iconCode = item.weather[0].icon;
             const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
             const windSpeed = (item.wind.speed * 2.237).toFixed(0);
-
 
             // Build the content
             weatherItem.innerHTML = `
