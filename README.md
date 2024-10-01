@@ -67,5 +67,5 @@ The **Road Trip Weather Planner** is a web application that allows users to plan
 
 ### Key Parameters
    q: City name (e.g., New York)
-   
-   appid: Your OpenWeather API key
+
+   appid: OpenWeather API key
