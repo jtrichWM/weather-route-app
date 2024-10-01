@@ -62,9 +62,10 @@ The **Road Trip Weather Planner** is a web application that allows users to plan
    https://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={API_KEY}
    
 
-   Replace {city_name} with the name of the city and {API_KEY} with your OpenWeather API key. You can sign up for an API key here: {https://openweathermap.org/}
+   Replace {city_name} with the name of the city and {API_KEY} with your OpenWeather API key. You can sign up for an API key here: https://openweathermap.org/
    The default implementation uses my API key, please do not abuse it. 
 
 ### Key Parameters
    q: City name (e.g., New York)
+   
    appid: Your OpenWeather API key
