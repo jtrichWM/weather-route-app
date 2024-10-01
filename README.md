@@ -47,9 +47,24 @@ The **Road Trip Weather Planner** is a web application that allows users to plan
 
 ### Example:
 
-   If you are planning a 3-day trip in New York, a 2-day stay in Boston, and a 1-day stay in Washington D.C., enter the cities and durations as follows:
+   If you are planning a 2-day trip in New York, a 2-day stay in Boston, and a 1-day stay in Washington D.C., enter the cities and durations as follows:
    
-   New York, 3
+   New York, 2
+
    Boston, 2
+
    Washington D.C., 1
 
+## API Reference
+
+   This application uses the **OpenWeather Map API** to fetch weather data. The base URL for the API is:
+   
+   https://api.openweathermap.org/data/2.5/forecast?q={city_name}&appid={API_KEY}
+   
+
+   Replace {city_name} with the name of the city and {API_KEY} with your OpenWeather API key. You can sign up for an API key here: {https://openweathermap.org/}
+   The default implementation uses my API key, please do not abuse it. 
+
+### Key Parameters
+   q: City name (e.g., New York)
+   appid: Your OpenWeather API key
