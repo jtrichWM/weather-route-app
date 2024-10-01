@@ -23,4 +23,13 @@ The **Road Trip Weather Planner** is a web application that allows users to plan
    ```bash
    git clone https://github.com/your-username/road-trip-weather-planner.git
 
-TODO
+2. Navigate to the project directory:
+   ```bash
+   cd road-trip-weather-planner
+
+3. Install the dependencies:
+   Since this project only includes HTML and JavaScript, no npm dependencies are required. However, if additional libraries are added in the future, make sure to install them.
+
+4. Open the index.html file in your web browser:
+   ```bash 
+   open index.html
