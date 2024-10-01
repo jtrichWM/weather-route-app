@@ -28,8 +28,28 @@ The **Road Trip Weather Planner** is a web application that allows users to plan
    cd road-trip-weather-planner
 
 3. Install the dependencies:
-- Since this project only includes HTML and JavaScript, no npm dependencies are required. However, if additional libraries are added in the future, make sure to install them.
+   - Since this project only includes HTML and JavaScript, no npm dependencies are required. However, if additional libraries are added in the future, make sure to install them.
 
 4. Open the index.html file in your web browser:
    ```bash 
    open index.html
+
+## Usage
+1. Open the application in your web browser.
+
+2. Enter the name of a city in the "Enter city name" input field.
+
+3. Enter the number of days you plan to stay in that city in the "Enter stay duration (days)" input field.
+
+4. Click on **Add Another City** if you want to add more cities to your trip.
+
+5. Once all cities are entered, click **Submit** to view the weather forecast for each city and day.
+
+### Example:
+
+   If you are planning a 3-day trip in New York, a 2-day stay in Boston, and a 1-day stay in Washington D.C., enter the cities and durations as follows:
+   
+   New York, 3
+   Boston, 2
+   Washington D.C., 1
+
