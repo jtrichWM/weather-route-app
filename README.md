@@ -9,7 +9,7 @@ The **Road Trip Weather Planner** is a web application that allows users to plan
 - [API Reference](#api-reference)
 - [Code Structure](#code-structure)
 - [Limitations](#limitations)
-- [Future Improvements](#future-improvements)
+- [Possible Future Improvements](#possible-future-improvements)
 
 ## Features
 - **Multi-City Input:** Add multiple cities and specify how many days you plan to spend in each city.
@@ -97,7 +97,7 @@ The application consists of the following components:
 
 - **API Rate Limits**: Free tier users of the OpenWeather API may experience rate limiting if making too many requests in a short period.
 
-## Posible Future Improvements
+## Possible Future Improvements
 
 1. **Full Country Name Display**: Use a mapping table or an external library to display the full country name instead of the country code.
 
