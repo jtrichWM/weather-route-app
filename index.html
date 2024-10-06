@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Road Trip Weather Planner</title>
     <style>
         body {
@@ -25,6 +26,40 @@
             margin-top: 5px;
             margin-bottom: 15px;
             color: #2c3e50;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Center the name and float the links to the right */
+        header h1 {
+            font-size: 2em;
+            margin: 0;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .header-links {
+            right: 20px;
+        }
+
+        .header-links a {
+            color: white;
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1.1em;
         }
 
         .weather-container {
@@ -92,7 +127,18 @@
     </style>
 </head>
 <body>
+
+    <!-- Header -->
+    <header>
+        <h1 style="font-family: Arial, sans-serif;">Jake Richardson</h1>
+        <div class="header-links">
+            <a href="https://www.linkedin.com/in/jaketrichardson/" class="fa fa-linkedin-square" style="font-size:36px" target="_blank"></a>
+            <a href="https://github.com/jtrichWM" class="fa fa-github" style="font-size:36px" target="_blank"></a>
+        </div>
+    </header>
+
     <h2>Enter City Names and How Long You Will Be There:</h2>
+
     <h4>Max Weather Forecast: 5 Days</h4>
     <div id="cityFields">
         <input type="text" placeholder="Enter city name" class="cityField">
